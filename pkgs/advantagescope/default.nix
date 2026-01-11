@@ -78,6 +78,7 @@ buildNpmPackage (finalAttrs: {
 
   installPhase = ''
     mkdir -p $out/bin
+    ls ./dist
     cp -r ./dist/linux-unpacked/. $out/bin/
     install -Dm444 "${src}"/icons/app/app-icons-linux/icon_512x512.png "$out"/share/pixmaps/${pname}.png
 
