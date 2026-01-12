@@ -129,6 +129,7 @@ buildNpmPackage (finalAttrs: {
     homepage = "https://docs.advantagescope.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ me-it-is ];
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 
   nativeBuildInputs = [
