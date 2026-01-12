@@ -9,7 +9,7 @@
 , copyDesktopItems
 , callPackage
 , isWPILibVersion ? false
-,
+, stdenv
 }:
 let
   pname = "advantage-scope";
@@ -35,6 +35,7 @@ let
       src
       pname
       patches
+      system
       ;
   };
 
@@ -42,6 +43,16 @@ let
   licenses = callPackage ./licenses.nix fetchersAtters;
   tesseract = callPackage ./tesseract-lang.nix fetchersAtters;
   npmDepsHash = "sha256-SfgTiK4Bs5u1rxzytMeMue8xqn34fagYt2qzrhEkWfs=";
+
+  system = stdenv.hostPlatform.system;
+
+  finalOutDir = 
+  {
+    "x86_64-linux" = "linux-unpacked";
+    "aarch64-linux" = "linux-arm64-unpacked";
+    "x86_64-darwin" = "darwin-unpacked";
+    "aarch64-darwin" = "darwin-arm64-unpacked";
+  }."${system}" or (throw "Unsupported system: ${system}");
 in
 buildNpmPackage (finalAttrs: {
   inherit
@@ -79,7 +90,7 @@ buildNpmPackage (finalAttrs: {
   installPhase = ''
     mkdir -p $out/bin
     ls ./dist
-    cp -r ./dist/linux-unpacked/. $out/bin/
+    cp -r ./dist/${finalOutDir}/. $out/bin/
     install -Dm444 "${src}"/icons/app/app-icons-linux/icon_512x512.png "$out"/share/pixmaps/${pname}.png
 
     runHook postInstall
