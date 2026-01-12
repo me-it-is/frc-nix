@@ -14,7 +14,7 @@ let
     "x86_64-linux" = "sha256-ygt3JJfDkxiKbMFax19nR6r1oBsvV9DxBno3AE3O0B4=";
     "aarch64-linux" = "sha256-ygt3JJfDkxiKbMFax19nR6r1oBsvV9DxBno3AE3O0B4=";
     "x86_64-darwin" = "sha256-clGPBAsyN+dbBWZ0YoW0TAc7GNMrNnyxF+a9kgWGDsE=";
-    "aarch65-darwin" = "sha256-clGPBAsyN+dbBWZ0YoW0TAc7GNMrNnyxF+a9kgWGDsE=";
+    "aarch64-darwin" = "sha256-clGPBAsyN+dbBWZ0YoW0TAc7GNMrNnyxF+a9kgWGDsE=";
   }."${system}" or (throw "Unsupported system: ${system}");
 in
 buildNpmPackage (finalAttrs: {
